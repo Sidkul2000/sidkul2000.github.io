@@ -57,7 +57,7 @@ const Hero = () => {
           <p className={`text-lg mb-12 max-w-2xl mx-auto transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
             Building Scalable AI Solutions with LLMs and RAG for Real-World Impact.
             <br></br>
-            From Codellama to Cloud — Engineering the Future of Intelligent Systems.
+            From Data to Cloud — Engineering the Future of Intelligent Systems.
           </p>
           
           <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>

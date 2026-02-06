@@ -29,7 +29,7 @@ const Experience = () => {
       title: "AI Engineer",
       company: "Seawolf AI",
       period: "February 2025 - Present",
-      description: "Worked for Jefferies Group LLC, an investment bank, developing AI-powered solutions for financial services.",
+      description: "Worked for financial institutions like Jefferies and Capital Group developing AI-powered solutions for financial services..",
       skills: ["AWS Bedrock", "Lambda", "S3", "SQS", "DynamoDB", "Next.js", "Node.js", "TypeScript", "FastAPI", "Terraform", "EKS", "Bamboo CI/CD", "Skaffold"],
       achievements: [
         "Engineered an end-to-end automated document extraction pipeline leveraging AWS Bedrock LLMs",

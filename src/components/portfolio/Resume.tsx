@@ -46,7 +46,7 @@ const Resume = () => {
     experience: [
       {
         title: "AI Engineer",
-        company: "Jefferies Group LLC (via Seawolf AI)",
+        company: "Seawolf AI",
         period: "February 2025 - Present",
         achievements: [
           "Engineered end-to-end automated document extraction pipeline leveraging AWS Bedrock LLMs",

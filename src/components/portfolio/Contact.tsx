@@ -78,7 +78,7 @@ const Contact = () => {
       name: "Portfolio",
       icon: User,
       href: "https://sidkul2000.github.io",
-      label: "sidkul2000.com"
+      label: "sidkul2000.github.io"
     }
   ];
 
