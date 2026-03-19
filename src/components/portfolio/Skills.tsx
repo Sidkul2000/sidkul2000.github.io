@@ -36,7 +36,6 @@ const stats = [
   { value: '25+', label: 'Projects Completed' },
   { value: '2+', label: 'Years Experience' },
   { value: '20+', label: 'Technologies' },
-  { value: '5+', label: 'Companies Worked' },
 ];
 
 const Skills = () => {

@@ -100,12 +100,6 @@ const Hero = () => {
         animate="visible"
         className="relative z-10 text-center max-w-4xl mx-auto px-4"
       >
-        <motion.div variants={item} className="mb-4">
-          <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium border border-primary/30 text-primary bg-primary/5">
-            Available for opportunities
-          </span>
-        </motion.div>
-
         <motion.h1
           variants={item}
           className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 gradient-text"

@@ -55,9 +55,8 @@ const About = () => {
               </p>
 
               {/* Quick stats */}
-              <div className="grid grid-cols-3 gap-4 pt-4">
+              <div className="grid grid-cols-2 gap-4 pt-4">
                 {[
-                  { value: '5+', label: 'Companies' },
                   { value: '1M+', label: 'Documents Processed' },
                   { value: '92%', label: 'Model Precision' },
                 ].map((stat) => (
