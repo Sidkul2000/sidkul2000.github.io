@@ -19,7 +19,7 @@ const socialLinks = [
   {
     name: 'LinkedIn',
     icon: Linkedin,
-    href: 'https://www.linkedin.com/in/siddhant-kulkarni/',
+    href: 'https://www.linkedin.com/in/siddhant-kulkarni-9bb2651b4',
     label: 'Siddhant Kulkarni',
   },
   {

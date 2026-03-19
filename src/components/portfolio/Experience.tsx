@@ -92,7 +92,7 @@ const activities = [
 const Experience = () => {
   return (
     <section id="experience" className="py-20 px-4 relative">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Experience</h2>
           <p className="text-xl text-muted-foreground">
@@ -100,78 +100,70 @@ const Experience = () => {
           </p>
         </AnimatedSection>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-8 md:left-1/2 md:-translate-x-px w-0.5 h-full bg-gradient-to-b from-primary via-accent to-primary/20" />
+        <StaggerContainer className="relative" staggerDelay={0.15}>
+          {/* Timeline line - runs full height, aligned to dots */}
+          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-primary/20" />
 
-          <StaggerContainer className="space-y-12" staggerDelay={0.15}>
-            {experiences.map((exp, index) => {
-              const isLeft = index % 2 === 0;
-              return (
-                <StaggerItem key={`${exp.company}-${index}`}>
-                  <div className="relative">
-                    {/* Timeline dot */}
+          <div className="space-y-8">
+            {experiences.map((exp, index) => (
+              <StaggerItem key={`${exp.company}-${index}`}>
+                <div className="relative flex gap-6">
+                  {/* Dot - vertically centered with the period badge */}
+                  <div className="relative flex-shrink-0 w-10 pt-6">
                     <motion.div
-                      className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-background bg-primary z-10 glow"
-                      whileInView={{ scale: [0, 1.2, 1] }}
+                      className="w-[14px] h-[14px] rounded-full border-[3px] border-background bg-primary shadow-md shadow-primary/30 mx-auto"
+                      whileInView={{ scale: [0, 1.3, 1] }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4 }}
                     />
-
-                    <div className={`grid md:grid-cols-2 gap-8 pl-16 md:pl-0`}>
-                      {!isLeft && <div className="hidden md:block" />}
-                      <div className={isLeft ? 'md:pr-12' : 'md:pl-12'}>
-                        <motion.div
-                          whileHover={{ y: -4 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <Card className="border-border/50 hover:border-primary/30 hover:glow transition-all duration-300 bg-card/50 backdrop-blur-sm">
-                            <CardHeader className="pb-3">
-                              <div className="flex items-center justify-between flex-wrap gap-2">
-                                <Badge variant="outline" className="text-xs text-primary border-primary/30">
-                                  {exp.period}
-                                </Badge>
-                              </div>
-                              <CardTitle className="text-lg mt-2">{exp.title}</CardTitle>
-                              <p className="text-primary font-medium text-sm">{exp.company}</p>
-                            </CardHeader>
-                            <CardContent>
-                              <p className="text-muted-foreground text-sm mb-4">{exp.description}</p>
-
-                              <div className="mb-4">
-                                <ul className="text-sm text-muted-foreground space-y-2">
-                                  {exp.achievements.map((a, i) => (
-                                    <li key={i} className="flex items-start">
-                                      <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2 mt-2 flex-shrink-0" />
-                                      {a}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-
-                              <div className="flex flex-wrap gap-1.5">
-                                {exp.skills.map((skill) => (
-                                  <Badge
-                                    key={skill}
-                                    variant="secondary"
-                                    className="text-xs bg-secondary/50 hover:bg-primary/20 transition-colors"
-                                  >
-                                    {skill}
-                                  </Badge>
-                                ))}
-                              </div>
-                            </CardContent>
-                          </Card>
-                        </motion.div>
-                      </div>
-                      {isLeft && <div className="hidden md:block" />}
-                    </div>
                   </div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </div>
+
+                  {/* Card */}
+                  <div className="flex-1 pb-2">
+                    <motion.div
+                      whileHover={{ y: -4 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Card className="border-border/50 hover:border-primary/30 hover:glow transition-all duration-300 bg-card/50 backdrop-blur-sm">
+                        <CardHeader className="pb-3">
+                          <Badge variant="outline" className="w-fit text-xs text-primary border-primary/30">
+                            {exp.period}
+                          </Badge>
+                          <CardTitle className="text-lg mt-1">{exp.title}</CardTitle>
+                          <p className="text-primary font-medium text-sm">{exp.company}</p>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-muted-foreground text-sm mb-4">{exp.description}</p>
+
+                          <ul className="text-sm text-muted-foreground space-y-2 mb-4">
+                            {exp.achievements.map((a, i) => (
+                              <li key={i} className="flex items-start">
+                                <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2 mt-[7px] flex-shrink-0" />
+                                {a}
+                              </li>
+                            ))}
+                          </ul>
+
+                          <div className="flex flex-wrap gap-1.5">
+                            {exp.skills.map((skill) => (
+                              <Badge
+                                key={skill}
+                                variant="secondary"
+                                className="text-xs bg-secondary/50 hover:bg-primary/20 transition-colors"
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </div>
+                </div>
+              </StaggerItem>
+            ))}
+          </div>
+        </StaggerContainer>
 
         {/* Activities */}
         <AnimatedSection className="mt-20">
