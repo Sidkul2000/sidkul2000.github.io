@@ -1,84 +1,74 @@
-
-import React, { useEffect, useRef, useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { AnimatedSection } from '@/components/animations/AnimatedSection';
 
 const About = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const values = [
-    { label: 'Innovation', progress: 95 },
-    { label: 'Quality', progress: 90 },
-    { label: 'Collaboration', progress: 88 },
-    { label: 'Growth', progress: 92 }
-  ];
-
   return (
-    <section id="about" ref={sectionRef} className="py-20 px-4 bg-muted/30">
-      <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <section id="about" className="py-20 px-4 relative overflow-hidden">
+      {/* Subtle background accent */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
+
+      <div className="max-w-6xl mx-auto relative">
+        <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">About Me</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Passionate developer with a love for creating scalable AI systems
+            AI Engineer building scalable systems for real-world impact
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className={`transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className="relative">
-              <img 
+          <AnimatedSection variant="fade-left">
+            <motion.div
+              className="relative group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <img
                 src="https://github.com/Sidkul2000/sidkul2000.github.io/blob/18fc80076b136dd478a3569c67fac153c8efb99a/img/sid.JPG?raw=true"
-                alt="Profile"
-                className="rounded-lg shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+                alt="Siddhant Kulkarni"
+                className="relative rounded-xl shadow-2xl w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent rounded-lg"></div>
-            </div>
-          </div>
+            </motion.div>
+          </AnimatedSection>
 
-          <div className={`space-y-8 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <div>
-              <h3 className="text-2xl font-semibold mb-4">My Journey</h3>
-              <p className="text-muted-foreground mb-4">
-                I am an AI Engineer at Seawolf AI, currently building a 0→1 SaaS platform for financial institutions that generates governance KPIs and board-effectiveness profiles across 1M+ filings using FastAPI, React, Postgres on AWS RDS, Gemini-based extraction services on Lambda and ECS Fargate and fully automated cloud infrastructure - giving me deep experience owning architecture, data pipelines and deployment end to end. I have worked with Capital Group to build production-grade AI systems for large-scale investment research and decision-making. At Capital Group, I developed an AI-driven thesis extraction and monitoring engine using GPT-4o, delivering automated insights to 9,000+ analysts and 300+ portfolio managers with over 92% precision and engineered real-time market signal pipelines that reduced research turnaround from days to minutes. Previously, I worked at Jefferies Group LLC, where I built and automated scalable document extraction systems using AWS LLMs, Terraform-managed EKS and robust CI/CD pipelines. I bring over a year of hands-on experience across Machine Learning, Deep Learning, NLP and LLM-based systems, with a strong focus on building reliable, scalable AI for real-world impact.
+          <AnimatedSection variant="fade-right" delay={0.2}>
+            <div className="space-y-6">
+              <h3 className="text-2xl font-semibold gradient-text inline-block">My Journey</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                I am an AI Engineer at Seawolf AI, currently building a 0-to-1 SaaS platform for financial
+                institutions that generates governance KPIs and board-effectiveness profiles across 1M+ filings
+                using FastAPI, React, Postgres on AWS RDS, Gemini-based extraction services on Lambda and ECS
+                Fargate and fully automated cloud infrastructure — giving me deep experience owning architecture,
+                data pipelines and deployment end to end.
               </p>
-              <p className="text-muted-foreground">
-                As a Master's student in Computer Science at NYU, I'm deepening my expertise in ML, Big Data Analytics and complex Data Visualization. My coursework covers advanced topics in Neural networks, Computer Vision and NLP, utilizing technologies like PyTorch, TensorFlow and Keras. I'm passionate about leveraging LLMs to tackle complex real-world challenges across industries, with a particular focus on scaling AI solutions to create broader societal impact and transform how businesses operate. As a Teaching Assistant for Natural Language Processing, I'm actively involved in guiding students through concepts like Hidden Markov Models, Machine Translation and Sentiment Analysis, further solidifying my understanding of these crucial AI technologies.
+              <p className="text-muted-foreground leading-relaxed">
+                I have worked with Capital Group to build production-grade AI systems for large-scale investment
+                research and decision-making, delivering automated insights to 9,000+ analysts and 300+ portfolio
+                managers with over 92% precision. Previously at Jefferies Group LLC, I built and automated scalable
+                document extraction systems using AWS LLMs, Terraform-managed EKS and robust CI/CD pipelines.
               </p>
-            </div>
+              <p className="text-muted-foreground leading-relaxed">
+                As a Master's graduate in Computer Science at NYU, my expertise spans ML, Big Data Analytics and
+                NLP. I'm passionate about leveraging LLMs to tackle complex real-world challenges, with a focus on
+                scaling AI solutions to create broader societal impact.
+              </p>
 
-            {/* <div>
-              <h4 className="text-xl font-semibold mb-6">Core Values</h4>
-              <div className="space-y-4">
-                {values.map((value, index) => (
-                  <div key={value.label} className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`} style={{ transitionDelay: `${700 + index * 100}ms` }}>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="font-medium">{value.label}</span>
-                      <span className="text-sm text-muted-foreground">{value.progress}%</span>
-                    </div>
-                    <Progress value={isVisible ? value.progress : 0} className="transition-all duration-1000" />
+              {/* Quick stats */}
+              <div className="grid grid-cols-3 gap-4 pt-4">
+                {[
+                  { value: '5+', label: 'Companies' },
+                  { value: '1M+', label: 'Documents Processed' },
+                  { value: '92%', label: 'Model Precision' },
+                ].map((stat) => (
+                  <div key={stat.label} className="text-center p-3 rounded-lg bg-secondary/30">
+                    <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground">{stat.label}</div>
                   </div>
                 ))}
               </div>
-            </div> */}
-          </div>
+            </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>

@@ -1,293 +1,202 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/animations/AnimatedSection';
+
+const experiences = [
+  {
+    title: 'AI Platform Engineer (Data and Cloud)',
+    company: 'BEL Capital Advisory LLC (via Seawolf AI)',
+    period: 'Nov 2025 - Present',
+    description:
+      'Architected a production multi-agent LLM pipeline using RAG and Gemini-2 Flash on AWS Lambda/ECS Fargate to transform 1M+ SEC filings into structured governance intelligence for institutional investors.',
+    achievements: [
+      'Built multi-agent pipeline (retrieval, extraction, evaluation, KPI scoring) generating governance KPIs across 15 years of filings',
+      'Designed distributed LLM inference pipelines ingesting EDGAR/FMP feeds into Postgres (RDS) with async workers, supporting 40K+ extractions/day at 1.8s median latency',
+      'Reduced inference costs 30% through caching and batching optimizations',
+    ],
+    skills: ['FastAPI', 'React', 'Postgres', 'AWS RDS', 'Gemini', 'Lambda', 'ECS Fargate', 'RAG'],
+  },
+  {
+    title: 'AI Engineer',
+    company: 'Capital Group (via Seawolf AI)',
+    period: 'Jun 2025 - Nov 2025',
+    description:
+      'Developed a production agent research assistant using GPT-4o that synthesized financial filings into investment theses, monitoring signals and automated research briefs.',
+    achievements: [
+      'Delivered automated insights to 9,000+ analysts and 300+ portfolio managers with 92.4% precision / 89.7% recall',
+      'Engineered real-time financial signal pipelines using AWS, Redis streams and DynamoDB',
+      'Reduced research turnaround from hours to minutes with 2s inference latency',
+    ],
+    skills: ['GPT-4o', 'Azure AI Foundry', 'AWS', 'Redis', 'DynamoDB', 'Python'],
+  },
+  {
+    title: 'AI Engineer Intern',
+    company: 'Jefferies Group LLC (via Seawolf AI)',
+    period: 'Feb 2025 - May 2025',
+    description:
+      'Implemented an LLM document intelligence pipeline using Claude 3.5 Sonnet (AWS Bedrock) with Lambda, S3, SQS and DynamoDB.',
+    achievements: [
+      'Built end-to-end automated document extraction pipeline leveraging AWS Bedrock LLMs',
+      'Operationalized the platform on Kubernetes (EKS) with Terraform and Bamboo CI/CD pipelines',
+      'Scaled ingestion capacity to 10K+ documents per day with 87.8% extraction accuracy',
+    ],
+    skills: ['AWS Bedrock', 'Lambda', 'S3', 'SQS', 'DynamoDB', 'Terraform', 'EKS', 'CI/CD'],
+  },
+  {
+    title: 'AI Engineer Intern',
+    company: 'Siemens Digital Industries Software',
+    period: 'Jun 2024 - Aug 2024',
+    description:
+      'Optimized GPU-based LLM inference pipelines for CodeLlama 34B/70B, improving latency and throughput for AI-assisted code understanding.',
+    achievements: [
+      'Enhanced syntax error accuracy and logical error detection using CodeLlama models across large-scale C++ enterprise codebases',
+      'Performed Static Code Analysis for C++ with Coverity',
+      'Created 15+ custom checkers in Codexm, boosting code maintainability by 20%',
+    ],
+    skills: ['CodeLlama', 'C++', 'Coverity', 'GPU Optimization', 'Python'],
+  },
+  {
+    title: 'AI Engineer Intern',
+    company: 'Systematic Ventures',
+    period: 'Jun 2024 - Aug 2024',
+    description:
+      'Built a RAG-based financial intelligence system combining web scraping, embeddings and FAISS semantic search.',
+    achievements: [
+      'Retrieved insights across 3,500+ datasets for investment analysis workflows',
+      'Implemented a vector search index storing 1M+ embeddings',
+      'Achieved RAGAS evaluation score of 0.72',
+    ],
+    skills: ['RAG', 'LangChain', 'FAISS', 'Vector Embeddings', 'Python', 'BeautifulSoup'],
+  },
+];
+
+const activities = [
+  {
+    title: 'Teaching Assistant - Natural Language Processing',
+    company: 'NYU Courant',
+    period: 'Sep 2024 - Jan 2025',
+    description:
+      'Taught 150 students NLP and supervised 9 project teams implementing HMMs, MT systems, POS/NER pipelines, semantic role labeling using NLTK and spaCy.',
+  },
+  {
+    title: 'Member - Vertically Integrated Projects',
+    company: 'NYU',
+    period: 'Sep 2024 - Dec 2025',
+    description:
+      'Developed time-series forecasting models (GPT-2, T5, Llama-2, LSTM) optimized for real-time inference efficiency on edge devices.',
+  },
+];
 
 const Experience = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const experiences = [
-    {
-      title: "AI Engineer",
-      company: "Seawolf AI",
-      period: "February 2025 - Present",
-      description: "Worked for financial institutions like Jefferies and Capital Group developing AI-powered solutions for financial services..",
-      skills: ["AWS Bedrock", "Lambda", "S3", "SQS", "DynamoDB", "Next.js", "Node.js", "TypeScript", "FastAPI", "Terraform", "EKS", "Bamboo CI/CD", "Skaffold"],
-      achievements: [
-        "Engineered an end-to-end automated document extraction pipeline leveraging AWS Bedrock LLMs",
-        "Managed scalable cloud deployment using Terraform for EKS cluster configuration",
-        "Utilized Skaffold for streamlined local development and testing cycles"
-      ],
-      stats: { projects: 2, impact: "End-to-end automation", team: 6 }
-    },
-    {
-      title: "LLM Development Team Member",
-      company: "Vertically Integrated Projects, New York University",
-      period: "August 2024 - January 2025",
-      description: "Member of Large Language Model Development Team focusing on time series forecasting and financial applications.",
-      skills: ["GPT-2", "T5", "LLAMA-2", "LSTM", "ARIMA", "XGBoost", "Python", "Machine Learning"],
-      achievements: [
-        "Developed time series forecasting models achieving RMSE scores of 51.4 for GPT-2",
-        "Presented findings on LLM-based forecasting and authored detailed reports",
-        "Proposed next steps integrating quaternion transformers"
-      ],
-      stats: { projects: 3, impact: "51.4 RMSE score", team: 8 }
-    },
-    {
-      title: "Teaching Assistant for Natural Language Processing",
-      company: "New York University, Courant Institute",
-      period: "August 2024 - January 2025",
-      description: "Instructed students in NLP concepts and guided project development in natural language processing applications.",
-      skills: ["NLP", "Hidden Markov Models", "Machine Translation", "NLTK", "spaCy", "Python", "Teaching"],
-      achievements: [
-        "Instructed 150 students in NLP covering HMMs, machine translation, and sentiment analysis",
-        "Coached 8 project groups in developing NLP applications",
-        "Guided through POS tagging, NER, and semantic role labeling tasks"
-      ],
-      stats: { projects: 8, impact: "150 students taught", team: 150 }
-    },
-    {
-      title: "AI Intern",
-      company: "Systematic Ventures",
-      period: "June 2024 - September 2024",
-      description: "Devised automated pipelines for data extraction and analysis using RAG and LangChain.",
-      skills: ["RAG", "LangChain", "BeautifulSoup", "FAISS", "Vector Embeddings", "Python", "Data Analysis"],
-      achievements: [
-        "Built automated pipeline extracting data from 3500+ sources",
-        "Created semantic search system with 1M+ vector embeddings",
-        "Achieved RAGAS score of 0.72 for retrieval accuracy"
-      ],
-      stats: { projects: 2, impact: "3500+ sources analyzed", team: 2 }
-    },
-    {
-      title: "AI Intern",
-      company: "Siemens Digital Industries Software",
-      period: "June 2024 - August 2024",
-      description: "Led debugging and development using Codellama 34B and 70B models for optimized GPU performance.",
-      skills: ["Codellama 34B", "Codellama 70B", "C++", "Coverity", "Static Code Analysis", "GPU Optimization"],
-      achievements: [
-        "Enhanced syntax error accuracy and logical error detection using Codellama models",
-        "Performed Static Code Analysis for C++ with Coverity",
-        "Created 15+ custom checkers in Codex, boosting code maintainability by 20%"
-      ],
-      stats: { projects: 3, impact: "20% maintainability boost", team: 5 }
-    },
-    {
-      title: "Engagement Ambassador",
-      company: "New York University, Phonathon",
-      period: "October 2023 - May 2024",
-      description: "Spearheaded NYU fundraising campaigns through targeted outreach and alumni relationship building.",
-      skills: ["Fundraising", "Communication", "Alumni Relations", "Campaign Management"],
-      achievements: [
-        "Secured over $5000 for research and scholarships through targeted outreach",
-        "Cultivated alumni relationships resulting in 50+ significant donations",
-        "Built enduring philanthropic partnerships with NYU"
-      ],
-      stats: { projects: 1, impact: "$5000+ raised", team: 45 }
-    },
-    {
-      title: "ML Intern",
-      company: "ArrayPointer Pvt. Ltd.",
-      period: "February 2022 - May 2022",
-      description: "Engineered a Product Recommendation System using Collaborative Filtering with SVD and KNNWithMeans.",
-      skills: ["Collaborative Filtering", "SVD", "KNNWithMeans", "Surprise", "SciPy", "Python", "Machine Learning"],
-      achievements: [
-        "Built Product Recommendation System achieving 92.2% accuracy",
-        "Processed dataset of 7.8 million products using advanced ML algorithms",
-        "Refined model by tuning hyperparameters, increasing accuracy by 4.7%"
-      ],
-      stats: { projects: 1, impact: "92.2% accuracy", team: 4 }
-    },
-    {
-      title: "General Secretary",
-      company: "Information Technology Students' Association",
-      period: "August 2020 - June 2023",
-      description: "Led the IT Department's Student Club with 50+ members, organizing diverse technical and non-technical events.",
-      skills: ["ReactJS", "Leadership", "Event Management", "Web Development", "Team Management"],
-      achievements: [
-        "Led IT Department's Student Club with 50+ members",
-        "Improved ITSA website using ReactJS, increasing user engagement by 40%",
-        "Reduced bounce rates by 20% while managing coding competitions"
-      ],
-      stats: { projects: 15, impact: "40% engagement boost", team: 50 }
-    }
-  ];
-
-  console.log("Experience component rendering, isVisible:", isVisible);
-  console.log("Number of experiences:", experiences.length);
-
   return (
-    <section id="experience" ref={sectionRef} className="py-20 px-4 bg-muted/30">
+    <section id="experience" className="py-20 px-4 relative">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Experience</h2>
           <p className="text-xl text-muted-foreground">
-            Building impactful solutions across diverse industries
+            Building impactful AI solutions across financial services
           </p>
-        </div>
+        </AnimatedSection>
 
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-accent to-primary opacity-30"></div>
+          <div className="absolute left-8 md:left-1/2 md:-translate-x-px w-0.5 h-full bg-gradient-to-b from-primary via-accent to-primary/20" />
 
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <div 
-                key={`${exp.company}-${index}`}
-                className="relative opacity-100"
-              >
-                {/* Timeline dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background shadow-lg z-10"></div>
+          <StaggerContainer className="space-y-12" staggerDelay={0.15}>
+            {experiences.map((exp, index) => {
+              const isLeft = index % 2 === 0;
+              return (
+                <StaggerItem key={`${exp.company}-${index}`}>
+                  <div className="relative">
+                    {/* Timeline dot */}
+                    <motion.div
+                      className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border-4 border-background bg-primary z-10 glow"
+                      whileInView={{ scale: [0, 1.2, 1] }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4 }}
+                    />
 
-                <div className="grid md:grid-cols-2 gap-8 items-center">
-                  {/* Left side content - even indices (0, 2, 4...) */}
-                  {index % 2 === 0 && (
-                    <div className="md:pr-8">
-                      <Card 
-                        className={`hover:shadow-xl transition-all duration-500 cursor-pointer ${hoveredCard === index ? 'scale-105 shadow-2xl' : ''}`}
-                        onMouseEnter={() => setHoveredCard(index)}
-                        onMouseLeave={() => setHoveredCard(null)}
-                      >
-                        <CardHeader>
-                          <CardTitle className="text-xl">{exp.title}</CardTitle>
-                          <p className="text-primary font-semibold">{exp.company}</p>
-                          <p className="text-muted-foreground">{exp.period}</p>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-muted-foreground mb-4">{exp.description}</p>
-                          
-                          <div className="mb-4">
-                            <h4 className="font-semibold mb-2">Key Achievements:</h4>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              {exp.achievements.map((achievement, idx) => (
-                                <li key={idx} className="flex items-start">
-                                  <span className="w-2 h-2 bg-primary rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
-                                  {achievement}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          <div className="mb-4">
-                            <h4 className="font-semibold mb-2">Technologies:</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {exp.skills.map((skill) => (
-                                <Badge key={skill} variant="outline" className="hover:bg-primary hover:text-primary-foreground transition-colors">
-                                  {skill}
+                    <div className={`grid md:grid-cols-2 gap-8 pl-16 md:pl-0`}>
+                      {!isLeft && <div className="hidden md:block" />}
+                      <div className={isLeft ? 'md:pr-12' : 'md:pl-12'}>
+                        <motion.div
+                          whileHover={{ y: -4 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <Card className="border-border/50 hover:border-primary/30 hover:glow transition-all duration-300 bg-card/50 backdrop-blur-sm">
+                            <CardHeader className="pb-3">
+                              <div className="flex items-center justify-between flex-wrap gap-2">
+                                <Badge variant="outline" className="text-xs text-primary border-primary/30">
+                                  {exp.period}
                                 </Badge>
-                              ))}
-                            </div>
-                          </div>
+                              </div>
+                              <CardTitle className="text-lg mt-2">{exp.title}</CardTitle>
+                              <p className="text-primary font-medium text-sm">{exp.company}</p>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-muted-foreground text-sm mb-4">{exp.description}</p>
 
-                          {hoveredCard === index && (
-                            <div className="grid grid-cols-3 gap-4 pt-4 border-t animate-fade-in">
-                              <div className="text-center">
-                                <p className="text-2xl font-bold text-primary">{exp.stats.projects}</p>
-                                <p className="text-xs text-muted-foreground">Projects</p>
+                              <div className="mb-4">
+                                <ul className="text-sm text-muted-foreground space-y-2">
+                                  {exp.achievements.map((a, i) => (
+                                    <li key={i} className="flex items-start">
+                                      <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2 mt-2 flex-shrink-0" />
+                                      {a}
+                                    </li>
+                                  ))}
+                                </ul>
                               </div>
-                              <div className="text-center">
-                                <p className="text-sm font-semibold text-primary">{exp.stats.impact}</p>
-                                <p className="text-xs text-muted-foreground">Impact</p>
+
+                              <div className="flex flex-wrap gap-1.5">
+                                {exp.skills.map((skill) => (
+                                  <Badge
+                                    key={skill}
+                                    variant="secondary"
+                                    className="text-xs bg-secondary/50 hover:bg-primary/20 transition-colors"
+                                  >
+                                    {skill}
+                                  </Badge>
+                                ))}
                               </div>
-                              <div className="text-center">
-                                <p className="text-2xl font-bold text-primary">{exp.stats.team}</p>
-                                <p className="text-xs text-muted-foreground">Team Size</p>
-                              </div>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      </div>
+                      {isLeft && <div className="hidden md:block" />}
                     </div>
-                  )}
-                  
-                  {/* Empty space for left side when content is on right */}
-                  {index % 2 === 1 && <div></div>}
-                  
-                  {/* Right side content - odd indices (1, 3, 5...) */}
-                  {index % 2 === 1 && (
-                    <div className="md:pl-8">
-                      <Card 
-                        className={`hover:shadow-xl transition-all duration-500 cursor-pointer ${hoveredCard === index ? 'scale-105 shadow-2xl' : ''}`}
-                        onMouseEnter={() => setHoveredCard(index)}
-                        onMouseLeave={() => setHoveredCard(null)}
-                      >
-                        <CardHeader>
-                          <CardTitle className="text-xl">{exp.title}</CardTitle>
-                          <p className="text-primary font-semibold">{exp.company}</p>
-                          <p className="text-muted-foreground">{exp.period}</p>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-muted-foreground mb-4">{exp.description}</p>
-                          
-                          <div className="mb-4">
-                            <h4 className="font-semibold mb-2">Key Achievements:</h4>
-                            <ul className="text-sm text-muted-foreground space-y-1">
-                              {exp.achievements.map((achievement, idx) => (
-                                <li key={idx} className="flex items-start">
-                                  <span className="w-2 h-2 bg-primary rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
-                                  {achievement}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+                  </div>
+                </StaggerItem>
+              );
+            })}
+          </StaggerContainer>
+        </div>
 
-                          <div className="mb-4">
-                            <h4 className="font-semibold mb-2">Technologies:</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {exp.skills.map((skill) => (
-                                <Badge key={skill} variant="outline" className="hover:bg-primary hover:text-primary-foreground transition-colors">
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          {hoveredCard === index && (
-                            <div className="grid grid-cols-3 gap-4 pt-4 border-t animate-fade-in">
-                              <div className="text-center">
-                                <p className="text-2xl font-bold text-primary">{exp.stats.projects}</p>
-                                <p className="text-xs text-muted-foreground">Projects</p>
-                              </div>
-                              <div className="text-center">
-                                <p className="text-sm font-semibold text-primary">{exp.stats.impact}</p>
-                                <p className="text-xs text-muted-foreground">Impact</p>
-                              </div>
-                              <div className="text-center">
-                                <p className="text-2xl font-bold text-primary">{exp.stats.team}</p>
-                                <p className="text-xs text-muted-foreground">Team Size</p>
-                              </div>
-                            </div>
-                          )}
-                        </CardContent>
-                      </Card>
-                    </div>
-                  )}
-                  
-                  {/* Empty space for right side when content is on left */}
-                  {index % 2 === 0 && <div></div>}
-                </div>
-              </div>
+        {/* Activities */}
+        <AnimatedSection className="mt-20">
+          <h3 className="text-2xl font-bold text-center mb-8">Activities</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            {activities.map((act, index) => (
+              <AnimatedSection key={act.title} delay={index * 0.1}>
+                <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
+                  <Card className="border-border/50 hover:border-primary/30 transition-all duration-300 bg-card/50 backdrop-blur-sm h-full">
+                    <CardHeader className="pb-2">
+                      <Badge variant="outline" className="w-fit text-xs text-primary border-primary/30 mb-1">
+                        {act.period}
+                      </Badge>
+                      <CardTitle className="text-base">{act.title}</CardTitle>
+                      <p className="text-primary font-medium text-sm">{act.company}</p>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground text-sm">{act.description}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </AnimatedSection>
             ))}
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

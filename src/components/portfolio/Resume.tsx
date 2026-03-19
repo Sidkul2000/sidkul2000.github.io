@@ -1,134 +1,107 @@
-
-import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Download, Eye, Mail, Github, User } from 'lucide-react';
+import { Download, Mail, Github, User } from 'lucide-react';
+import { AnimatedSection } from '@/components/animations/AnimatedSection';
+
+const resumeData = {
+  personal: {
+    name: 'Siddhant Kulkarni',
+    title: 'AI Platform Engineer',
+    email: 'sidkul2000@gmail.com',
+    phone: '+1 (347) 646-9459',
+    location: 'New York, NY',
+    website: 'github.com/Sidkul2000',
+  },
+  summary:
+    'AI Platform Engineer with expertise in building production multi-agent LLM pipelines, cloud infrastructure, and data-intensive systems. Track record of delivering end-to-end AI solutions at BEL Capital Advisory, Capital Group, and Jefferies, processing 1M+ financial documents with high precision. Deep experience across ML, NLP, and cloud-native architectures.',
+  experience: [
+    {
+      title: 'AI Platform Engineer (Data and Cloud)',
+      company: 'BEL Capital Advisory LLC (via Seawolf AI)',
+      period: 'Nov 2025 - Present',
+      achievements: [
+        'Architected production multi-agent LLM pipeline using RAG and Gemini-2 Flash on AWS Lambda/ECS Fargate',
+        'Designed distributed pipelines supporting 40K+ document extractions/day at 1.8s median latency',
+        'Reduced inference costs 30% through caching and batching optimizations',
+      ],
+    },
+    {
+      title: 'AI Engineer',
+      company: 'Capital Group (via Seawolf AI)',
+      period: 'Jun 2025 - Nov 2025',
+      achievements: [
+        'Built production agent research assistant using GPT-4o for 9,000+ analysts and 300+ PMs',
+        'Achieved 92.4% precision / 89.7% recall on financial signal extraction',
+        'Engineered real-time pipelines with AWS, Redis streams and DynamoDB',
+      ],
+    },
+    {
+      title: 'AI Engineer Intern',
+      company: 'Jefferies Group LLC (via Seawolf AI)',
+      period: 'Feb 2025 - May 2025',
+      achievements: [
+        'Implemented LLM document intelligence pipeline using Claude 3.5 Sonnet (AWS Bedrock)',
+        'Operationalized platform on Kubernetes (EKS) with Terraform and Bamboo CI/CD',
+        'Scaled ingestion to 10K+ documents/day with 87.8% extraction accuracy',
+      ],
+    },
+    {
+      title: 'AI Engineer Intern',
+      company: 'Siemens Digital Industries Software',
+      period: 'Jun 2024 - Aug 2024',
+      achievements: [
+        'Optimized GPU-based LLM inference pipelines for CodeLlama 34B/70B',
+        'Performed Static Code Analysis for C++ with Coverity, 15+ custom checkers',
+      ],
+    },
+    {
+      title: 'AI Engineer Intern',
+      company: 'Systematic Ventures',
+      period: 'Jun 2024 - Aug 2024',
+      achievements: [
+        'Built RAG-based financial intelligence system across 3,500+ datasets',
+        'Implemented vector search index storing 1M+ embeddings, RAGAS score 0.72',
+      ],
+    },
+  ],
+  education: [
+    { degree: "Master's of Science in Computer Science", school: 'New York University', year: '2023-2025' },
+    { degree: 'Bachelor of Engineering in Information Technology (Honors AI/ML)', school: 'Savitribai Phule Pune University', year: '2019-2023' },
+  ],
+  skills: [
+    'Python', 'C++', 'Java', 'JavaScript', 'SQL', 'LangChain', 'LangGraph', 'OpenAI API',
+    'Azure AI Foundry', 'AWS Bedrock', 'Gemini', 'Llama', 'AWS', 'Redis', 'Postgres',
+    'FastAPI', 'Node.js', 'React', 'n8n', 'Docker', 'Kubernetes', 'Terraform', 'CI/CD',
+  ],
+};
+
+const handleDownload = () => {
+  window.open(
+    'https://drive.google.com/file/d/1gJlSUdyJfdoQHB7GLQ-dk8RMOcNSHauo/view?usp=sharing',
+    '_blank'
+  );
+};
 
 const Resume = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.2 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleDownload = () => {
-    // Log for debugging
-    console.log('Downloading resume...');
-    // Navigate to the Google Drive file
-    window.open('https://drive.google.com/file/d/1OsS4WKxfezO7dK1B8zyqNP6J-2CxUwyo/view?usp=sharing', '_blank');
-  };
-
-  const resumeData = {
-    personal: {
-      name: "Siddhant Kulkarni",
-      title: "AI Engineer & Data Scientist",
-      email: "sidkul2000@gmail.com",
-      phone: "+1 (347) 646-9459",
-      location: "New York, NY",
-      website: "github.com/Sidkul2000",
-    },
-    summary: "AI Engineer with 1+ years of expertise in machine learning, deep learning, and cloud technologies. Proven track record of building end-to-end AI solutions from research to production deployment, with experience in financial services, education, and tech industries.",
-    experience: [
-      {
-        title: "AI Engineer",
-        company: "Seawolf AI",
-        period: "February 2025 - Present",
-        achievements: [
-          "Engineered end-to-end automated document extraction pipeline leveraging AWS Bedrock LLMs",
-          "Managed scalable cloud deployment using Terraform for EKS cluster configuration",
-          "Utilized Skaffold for streamlined local development and testing cycles"
-        ]
-      },
-      {
-        title: "LLM Development Team Member",
-        company: "New York University - VIP",
-        period: "August 2024 - January 2025",
-        achievements: [
-          "Developed time series forecasting models achieving RMSE scores of 51.4 for GPT-2",
-          "Presented findings on LLM-based forecasting and authored detailed reports",
-          "Proposed next steps integrating quaternion transformers"
-        ]
-      },
-      {
-        title: "Teaching Assistant - NLP",
-        company: "NYU Courant Institute",
-        period: "August 2024 - January 2025",
-        achievements: [
-          "Instructed 150 students in NLP covering HMMs, machine translation, sentiment analysis",
-          "Coached 8 project groups in developing NLP applications",
-          "Guided through POS tagging, NER, and semantic role labeling tasks"
-        ]
-      },
-      {
-        title: "AI Intern",
-        company: "Systematic Ventures",
-        period: "June 2024 - September 2024",
-        achievements: [
-          "Built automated pipeline extracting data from 3500+ sources",
-          "Created semantic search system with 1M+ vector embeddings",
-          "Achieved RAGAS score of 0.72 for retrieval accuracy"
-        ]
-      }
-    ],
-    education: [
-      {
-        degree: "Master of Science in Computer Science",
-        school: "New York University",
-        year: "2023-2025"
-      },
-      {
-        degree: "Bachelor of Engineering in Information Technology",
-        school: "Pune University",
-        year: "2019-2023"
-      }
-    ],
-    skills: [
-      "Python", "TensorFlow", "PyTorch", "AWS", "Docker", "Kubernetes",
-      "Next.js", "TypeScript", "FastAPI", "Machine Learning", "Deep Learning",
-      "NLP", "Computer Vision", "Data Analysis", "Cloud Computing"
-    ]
-  };
-
   return (
-    <section id="resume" ref={sectionRef} className="py-20 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <section id="resume" className="py-20 px-4 relative">
+      <div className="absolute top-0 left-0 w-80 h-80 bg-primary/5 rounded-full blur-[100px]" />
+
+      <div className="max-w-6xl mx-auto relative">
+        <AnimatedSection className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4">Resume</h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional summary and career highlights
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" onClick={handleDownload} className="hover-scale">
-              <Download className="w-4 h-4 mr-2" />
-              Download PDF
-            </Button>
-            {/* <Button variant="outline" size="lg" className="hover-scale">
-              <Eye className="w-4 h-4 mr-2" />
-              View Online
-            </Button> */}
-          </div>
-        </div>
+          <p className="text-xl text-muted-foreground mb-8">Professional summary and career highlights</p>
+          <Button size="lg" onClick={handleDownload} className="group">
+            <Download className="w-4 h-4 mr-2 group-hover:animate-bounce" />
+            Download PDF
+          </Button>
+        </AnimatedSection>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Column - Personal Info & Contact */}
-          <div className={`space-y-6 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <Card className="hover:shadow-lg transition-shadow duration-300">
+          {/* Left Column */}
+          <AnimatedSection variant="fade-left" className="space-y-6">
+            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <User className="w-5 h-5" />
@@ -138,9 +111,9 @@ const Resume = () => {
               <CardContent className="space-y-3">
                 <div>
                   <h3 className="font-semibold text-lg">{resumeData.personal.name}</h3>
-                  <p className="text-primary">{resumeData.personal.title}</p>
+                  <p className="text-primary text-sm">{resumeData.personal.title}</p>
                 </div>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4" />
                     <span>{resumeData.personal.email}</span>
@@ -153,19 +126,14 @@ const Resume = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow duration-300">
+            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle>Core Skills</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {resumeData.skills.map((skill, index) => (
-                    <Badge 
-                      key={skill}
-                      variant="outline" 
-                      className={`hover:bg-primary hover:text-primary-foreground transition-colors animate-fade-in`}
-                      style={{ animationDelay: `${index * 50}ms` }}
-                    >
+                <div className="flex flex-wrap gap-1.5">
+                  {resumeData.skills.map((skill) => (
+                    <Badge key={skill} variant="secondary" className="text-xs bg-secondary/50 hover:bg-primary/20 transition-colors">
                       {skill}
                     </Badge>
                   ))}
@@ -173,25 +141,25 @@ const Resume = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow duration-300">
+            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle>Education</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {resumeData.education.map((edu, index) => (
-                  <div key={edu.degree} className={`animate-fade-in`} style={{ animationDelay: `${index * 200}ms` }}>
-                    <h4 className="font-semibold">{edu.degree}</h4>
+                {resumeData.education.map((edu) => (
+                  <div key={edu.degree}>
+                    <h4 className="font-semibold text-sm">{edu.degree}</h4>
                     <p className="text-sm text-primary">{edu.school}</p>
-                    <p className="text-sm text-muted-foreground">{edu.year}</p>
+                    <p className="text-xs text-muted-foreground">{edu.year}</p>
                   </div>
                 ))}
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
 
-          {/* Right Column - Experience & Summary */}
-          <div className={`lg:col-span-2 space-y-6 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            <Card className="hover:shadow-lg transition-shadow duration-300">
+          {/* Right Column */}
+          <AnimatedSection variant="fade-right" delay={0.2} className="lg:col-span-2 space-y-6">
+            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle>Professional Summary</CardTitle>
               </CardHeader>
@@ -200,31 +168,27 @@ const Resume = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow duration-300">
+            <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle>Professional Experience</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                {resumeData.experience.map((exp, index) => (
-                  <div 
-                    key={exp.title}
-                    className={`border-l-2 border-primary/20 pl-4 animate-fade-in`}
-                    style={{ animationDelay: `${index * 300}ms` }}
-                  >
+                {resumeData.experience.map((exp) => (
+                  <div key={`${exp.company}-${exp.period}`} className="border-l-2 border-primary/20 pl-4">
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-2">
                       <div>
-                        <h4 className="font-semibold text-lg">{exp.title}</h4>
-                        <p className="text-primary font-medium">{exp.company}</p>
+                        <h4 className="font-semibold">{exp.title}</h4>
+                        <p className="text-primary text-sm font-medium">{exp.company}</p>
                       </div>
-                      <Badge variant="outline" className="w-fit mt-1 sm:mt-0">
+                      <Badge variant="outline" className="w-fit mt-1 sm:mt-0 text-xs border-primary/30">
                         {exp.period}
                       </Badge>
                     </div>
                     <ul className="space-y-1 text-sm text-muted-foreground">
-                      {exp.achievements.map((achievement, achIndex) => (
-                        <li key={achIndex} className="flex items-start">
-                          <span className="w-2 h-2 bg-primary rounded-full mr-2 mt-2 flex-shrink-0"></span>
-                          {achievement}
+                      {exp.achievements.map((a, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2 mt-2 flex-shrink-0" />
+                          {a}
                         </li>
                       ))}
                     </ul>
@@ -232,7 +196,7 @@ const Resume = () => {
                 ))}
               </CardContent>
             </Card>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>
