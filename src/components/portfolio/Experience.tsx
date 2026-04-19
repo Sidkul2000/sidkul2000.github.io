@@ -1,197 +1,128 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { AnimatedSection, StaggerContainer, StaggerItem } from '@/components/animations/AnimatedSection';
+type XPItem = {
+  period: string;
+  current?: boolean;
+  title: string;
+  company: string;
+  desc: string;
+  bullets?: string[];
+  chips?: string[];
+};
 
-const experiences = [
+const items: XPItem[] = [
   {
-    title: 'AI Platform Engineer (Data and Cloud)',
-    company: 'BEL Capital Advisory LLC (via Seawolf AI)',
-    period: 'Nov 2025 - Present',
-    description:
-      'Architected a production multi-agent LLM pipeline using RAG and Gemini-2 Flash on AWS Lambda/ECS Fargate to transform 1M+ SEC filings into structured governance intelligence for institutional investors.',
-    achievements: [
-      'Built multi-agent pipeline (retrieval, extraction, evaluation, KPI scoring) generating governance KPIs across 15 years of filings',
-      'Designed distributed LLM inference pipelines ingesting EDGAR/FMP feeds into Postgres (RDS) with async workers, supporting 40K+ extractions/day at 1.8s median latency',
-      'Reduced inference costs 30% through caching and batching optimizations',
+    period: 'NOV 2025 — PRESENT',
+    current: true,
+    title: 'AI Platform Engineer · Data & Cloud',
+    company: 'BEL Capital Advisory LLC · via Seawolf AI',
+    desc: 'Architected a production multi-agent LLM pipeline using RAG and Gemini-2 Flash on AWS Lambda / ECS Fargate — turning 1M+ SEC filings into structured governance intelligence for institutional investors.',
+    bullets: [
+      'Built retrieval → extraction → evaluation → KPI scoring agents across 15 years of filings',
+      '40K+ extractions/day at 1.8s median latency via async workers on RDS',
+      'Reduced inference costs 30% through caching and batching',
     ],
-    skills: ['FastAPI', 'React', 'Postgres', 'AWS RDS', 'Gemini', 'Lambda', 'ECS Fargate', 'RAG'],
+    chips: ['FastAPI', 'React', 'Postgres', 'AWS RDS', 'Gemini', 'Lambda', 'ECS Fargate', 'RAG'],
   },
   {
+    period: 'JUN 2025 — NOV 2025',
     title: 'AI Engineer',
-    company: 'Capital Group (via Seawolf AI)',
-    period: 'Jun 2025 - Nov 2025',
-    description:
-      'Developed a production agent research assistant using GPT-4o that synthesized financial filings into investment theses, monitoring signals and automated research briefs.',
-    achievements: [
-      'Delivered automated insights to 9,000+ analysts and 300+ portfolio managers with 92.4% precision / 89.7% recall',
-      'Engineered real-time financial signal pipelines using AWS, Redis streams and DynamoDB',
-      'Reduced research turnaround from hours to minutes with 2s inference latency',
+    company: 'Capital Group · via Seawolf AI',
+    desc: 'Production agent research assistant (GPT-4o) that synthesized financial filings into investment theses and monitoring signals.',
+    bullets: [
+      'Automated insights to 9,000+ analysts and 300+ PMs at 92.4% precision / 89.7% recall',
+      'Real-time signal pipelines with AWS, Redis streams, DynamoDB',
+      'Research turnaround cut from hours to minutes — 2s inference latency',
     ],
-    skills: ['GPT-4o', 'Azure AI Foundry', 'AWS', 'Redis', 'DynamoDB', 'Python'],
+    chips: ['GPT-4o', 'Azure AI Foundry', 'AWS', 'Redis', 'DynamoDB', 'Python'],
   },
   {
+    period: 'FEB 2025 — MAY 2025',
     title: 'AI Engineer Intern',
-    company: 'Jefferies Group LLC (via Seawolf AI)',
-    period: 'Feb 2025 - May 2025',
-    description:
-      'Implemented an LLM document intelligence pipeline using Claude 3.5 Sonnet (AWS Bedrock) with Lambda, S3, SQS and DynamoDB.',
-    achievements: [
-      'Built end-to-end automated document extraction pipeline leveraging AWS Bedrock LLMs',
-      'Operationalized the platform on Kubernetes (EKS) with Terraform and Bamboo CI/CD pipelines',
-      'Scaled ingestion capacity to 10K+ documents per day with 87.8% extraction accuracy',
+    company: 'Jefferies Group LLC · via Seawolf AI',
+    desc: 'LLM document intelligence pipeline with Claude 3.5 Sonnet on Bedrock — Lambda, S3, SQS, DynamoDB.',
+    bullets: [
+      'End-to-end automated extraction on AWS Bedrock',
+      'Kubernetes (EKS) + Terraform + Bamboo CI/CD',
+      '10K+ documents/day at 87.8% accuracy',
     ],
-    skills: ['AWS Bedrock', 'Lambda', 'S3', 'SQS', 'DynamoDB', 'Terraform', 'EKS', 'CI/CD'],
+    chips: ['AWS Bedrock', 'Lambda', 'EKS', 'Terraform', 'CI/CD'],
   },
   {
+    period: 'JUN 2024 — AUG 2024',
     title: 'AI Engineer Intern',
     company: 'Siemens Digital Industries Software',
-    period: 'Jun 2024 - Aug 2024',
-    description:
-      'Optimized GPU-based LLM inference pipelines for CodeLlama 34B/70B, improving latency and throughput for AI-assisted code understanding.',
-    achievements: [
-      'Enhanced syntax error accuracy and logical error detection using CodeLlama models across large-scale C++ enterprise codebases',
-      'Performed Static Code Analysis for C++ with Coverity',
-      'Created 15+ custom checkers in Codexm, boosting code maintainability by 20%',
+    desc: 'Optimized GPU-based LLM inference for CodeLlama 34B/70B — improving latency for AI-assisted code understanding on enterprise C++ codebases.',
+    bullets: [
+      'Static code analysis in Coverity; 15+ custom Codexm checkers',
+      '20% maintainability uplift across large-scale C++',
     ],
-    skills: ['CodeLlama', 'C++', 'Coverity', 'GPU Optimization', 'Python'],
+    chips: ['CodeLlama', 'C++', 'Coverity', 'GPU Optimization'],
   },
   {
+    period: 'JUN 2024 — AUG 2024',
     title: 'AI Engineer Intern',
     company: 'Systematic Ventures',
-    period: 'Jun 2024 - Aug 2024',
-    description:
-      'Built a RAG-based financial intelligence system combining web scraping, embeddings and FAISS semantic search.',
-    achievements: [
-      'Retrieved insights across 3,500+ datasets for investment analysis workflows',
-      'Implemented a vector search index storing 1M+ embeddings',
-      'Achieved RAGAS evaluation score of 0.72',
+    desc: 'RAG financial-intelligence system combining scraping, embeddings and FAISS semantic search across 3,500+ datasets.',
+    bullets: [
+      'Vector index with 1M+ embeddings',
+      'RAGAS evaluation score of 0.72',
     ],
-    skills: ['RAG', 'LangChain', 'FAISS', 'Vector Embeddings', 'Python', 'BeautifulSoup'],
+    chips: ['RAG', 'LangChain', 'FAISS', 'Embeddings'],
   },
-];
-
-const activities = [
   {
-    title: 'Teaching Assistant - Natural Language Processing',
+    period: 'SEP 2024 — JAN 2025',
+    title: 'Teaching Assistant · NLP',
     company: 'NYU Courant',
-    period: 'Sep 2024 - Jan 2025',
-    description:
-      'Taught 150 students NLP and supervised 9 project teams implementing HMMs, MT systems, POS/NER pipelines, semantic role labeling using NLTK and spaCy.',
-  },
-  {
-    title: 'Member - Vertically Integrated Projects',
-    company: 'NYU',
-    period: 'Sep 2024 - Dec 2025',
-    description:
-      'Developed time-series forecasting models (GPT-2, T5, Llama-2, LSTM) optimized for real-time inference efficiency on edge devices.',
+    desc: 'Taught 150 students; supervised 9 project teams on HMMs, MT, POS/NER pipelines, semantic role labeling with NLTK and spaCy.',
   },
 ];
 
-const Experience = () => {
-  return (
-    <section id="experience" className="py-20 px-4 relative">
-      <div className="max-w-4xl mx-auto">
-        <AnimatedSection className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4">Experience</h2>
-          <p className="text-xl text-muted-foreground">
-            Building impactful AI solutions across financial services
+const Experience = () => (
+  <section className="section" id="experience">
+    <div className="section-inner">
+      <div className="xp-grid">
+        <div className="xp-sticky">
+          <div className="section-label reveal">02 · Work</div>
+          <h2 className="section-title reveal d1" style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}>
+            Trajectory.
+          </h2>
+          <p className="section-sub reveal d2" style={{ marginTop: 20 }}>
+            Five years across finance, enterprise software, and research — always at the LLM +
+            cloud seam.
           </p>
-        </AnimatedSection>
+        </div>
 
-        <StaggerContainer className="relative" staggerDelay={0.15}>
-          {/* Timeline line - runs full height, aligned to dots */}
-          <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-primary via-accent to-primary/20" />
-
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <StaggerItem key={`${exp.company}-${index}`}>
-                <div className="relative flex gap-6">
-                  {/* Dot - vertically centered with the period badge */}
-                  <div className="relative flex-shrink-0 w-10 pt-6">
-                    <motion.div
-                      className="w-[14px] h-[14px] rounded-full border-[3px] border-background bg-primary shadow-md shadow-primary/30 mx-auto"
-                      whileInView={{ scale: [0, 1.3, 1] }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4 }}
-                    />
-                  </div>
-
-                  {/* Card */}
-                  <div className="flex-1 pb-2">
-                    <motion.div
-                      whileHover={{ y: -4 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Card className="border-border/50 hover:border-primary/30 hover:glow transition-all duration-300 bg-card/50 backdrop-blur-sm">
-                        <CardHeader className="pb-3">
-                          <Badge variant="outline" className="w-fit text-xs text-primary border-primary/30">
-                            {exp.period}
-                          </Badge>
-                          <CardTitle className="text-lg mt-1">{exp.title}</CardTitle>
-                          <p className="text-primary font-medium text-sm">{exp.company}</p>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-muted-foreground text-sm mb-4">{exp.description}</p>
-
-                          <ul className="text-sm text-muted-foreground space-y-2 mb-4">
-                            {exp.achievements.map((a, i) => (
-                              <li key={i} className="flex items-start">
-                                <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2 mt-[7px] flex-shrink-0" />
-                                {a}
-                              </li>
-                            ))}
-                          </ul>
-
-                          <div className="flex flex-wrap gap-1.5">
-                            {exp.skills.map((skill) => (
-                              <Badge
-                                key={skill}
-                                variant="secondary"
-                                className="text-xs bg-secondary/50 hover:bg-primary/20 transition-colors"
-                              >
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  </div>
+        <div className="xp-timeline">
+          {items.map((it, idx) => (
+            <div key={idx} className={`xp-item${it.current ? ' current' : ''} reveal`}>
+              <div className="xp-period">
+                {it.current && <span className="badge">NOW</span>}
+                {it.period}
+              </div>
+              <h3 className="xp-title">{it.title}</h3>
+              <div className="xp-company">{it.company}</div>
+              <p className="xp-desc">{it.desc}</p>
+              {it.bullets && (
+                <ul className="xp-bullets">
+                  {it.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              )}
+              {it.chips && (
+                <div className="chips">
+                  {it.chips.map((c) => (
+                    <span className="chip" key={c}>
+                      {c}
+                    </span>
+                  ))}
                 </div>
-              </StaggerItem>
-            ))}
-          </div>
-        </StaggerContainer>
-
-        {/* Activities */}
-        <AnimatedSection className="mt-20">
-          <h3 className="text-2xl font-bold text-center mb-8">Activities</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {activities.map((act, index) => (
-              <AnimatedSection key={act.title} delay={index * 0.1}>
-                <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
-                  <Card className="border-border/50 hover:border-primary/30 transition-all duration-300 bg-card/50 backdrop-blur-sm h-full">
-                    <CardHeader className="pb-2">
-                      <Badge variant="outline" className="w-fit text-xs text-primary border-primary/30 mb-1">
-                        {act.period}
-                      </Badge>
-                      <CardTitle className="text-base">{act.title}</CardTitle>
-                      <p className="text-primary font-medium text-sm">{act.company}</p>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-muted-foreground text-sm">{act.description}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </AnimatedSection>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Experience;
