@@ -9,7 +9,7 @@ const About = () => (
           </h2>
         </div>
         <p className="section-sub reveal d2">
-          Building the boring-but-hard parts of AI — pipelines, observability, and cost — so
+          Building the hard parts of AI — pipelines, observability, and cost — so
           the clever parts can ship.
         </p>
       </div>
