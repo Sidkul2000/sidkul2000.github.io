@@ -86,7 +86,7 @@ const Experience = () => (
             Trajectory.
           </h2>
           <p className="section-sub reveal d2" style={{ marginTop: 20 }}>
-            Five years across finance, enterprise software, and research — always at the LLM +
+            1+ years across finance, enterprise software, and research — always at the LLM +
             cloud seam.
           </p>
         </div>
